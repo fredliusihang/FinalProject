@@ -42,8 +42,9 @@ usa_listings[:5] # Links where the files are stored.
 city_data = []
 
 for listing in tqdm(usa_listings):
-  city_data.append(pd.read_csv(listing))
-
+  df = pd.read_csv(listing)
+  df["link"] = listing
+  city_data.append(df)
 #%%
   
 # Concatenate all the cities data to create a single dataframe.
@@ -52,5 +53,13 @@ display(usa_data.head())
 print(f"Dataset Shape: {usa_data.shape}")
 
 #%%
+listings = usa_data.copy()
+listings.reset_index(drop=True, inplace=True)
+listings
 
-usa_data.to_csv("listings.csv", index = None)
+#%%
+listings.info()
+#%%
+listings.columns
+#%%
+listings.iloc[0].values
